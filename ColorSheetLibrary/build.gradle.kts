@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
+//    alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
 }
 
@@ -8,6 +9,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
+//        applicationId = "aok.nori.colorsheetlibrary"
         minSdk = 24
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -29,6 +31,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    buildFeatures {
+        viewBinding = true
     }
 }
 
