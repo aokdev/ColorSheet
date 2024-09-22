@@ -14,12 +14,8 @@ internal fun resolveColor(context: Context, @ColorRes colorRes: Int): Int {
     return ContextCompat.getColor(context, colorRes)
 }
 
-// TODO: 翻訳コメントを見直し
 /**
- * Resolve a attribute value and return color
- */
-/**
- * 属性値を解決して色を返す
+ * 属性値から色を返す
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 @ColorInt
@@ -31,9 +27,6 @@ internal fun resolveColorAttr(
     return a.getColor(0, 0)
 }
 
-/**
- * gotten from [https://github.com/afollestad/material-dialogs/blob/master/core/src/main/java/com/afollestad/materialdialogs/utils/MDUtil.kt]
- */
 /**
  * 取得：
  * [https://github.com/afollestad/material-dialogs/blob/master/core/src/main/java/com/afollestad/materialdialogs/utils/MDUtil.kt]

@@ -21,18 +21,11 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-// TODO: 翻訳コメントを見直し
-/**
- * Listener for color picker
- *
- * returns color selected from the sheet. If noColorOption is enabled and user selects the option,
- * it will return [ColorSheet.NO_COLOR]
- */
 /**
  * ColorSheet Listener
  *
  * 選択された色を返却する。
- * noColorOption が有効でユーザーがオプションを選択した場合は[ColorSheet.NO_COLOR] を返却する。
+ * noColorOption が有効でユーザーがオプションを選択した場合は [ColorSheet.NO_COLOR] を返却する。
  */
 typealias ColorPickerListener = ((color: Int) -> Unit)?
 
@@ -57,10 +50,12 @@ class ColorSheet : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        _binding = ColorSheetBinding.inflate(inflater, container, false)
+
         if (savedInstanceState != null) dismiss()
 
-        return inflater.inflate(R.layout.color_sheet, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -76,7 +71,7 @@ class ColorSheet : BottomSheetDialogFragment() {
 
                 behavior.state = BottomSheetBehavior.STATE_EXPANDED
                 behavior.peekHeight = 0
-                behavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+                behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
                     override fun onSlide(bottomSheet: View, slideOffset: Float) {
                     }
 
@@ -105,13 +100,10 @@ class ColorSheet : BottomSheetDialogFragment() {
         }
         view.background = gradientDrawable
 
-        // TODO: 本当にこれで良いのか
         if (colorAdapter != null) {
             binding.colorSheetList.adapter = colorAdapter
-//            colorSheetList.adapter = colorAdapter
         }
 
-//        colorSheetClose.setOnClickListener {
         binding.colorSheetClose.setOnClickListener {
             dismiss()
         }
@@ -121,16 +113,11 @@ class ColorSheet : BottomSheetDialogFragment() {
         super.onDestroyView()
 
         colorAdapter = null
+        _binding = null
     }
 
-    // TODO: 翻訳コメントを見直し
     /**
-     * Set corner radius of sheet top left and right corners.
-     *
-     * @param radius: Takes a float value
-     */
-    /**
-     * シート上部の左隅と右上隅の角の半径を設定します。
+     * シート上部の左隅と右上隅の角の半径を設定
      *
      * @param radius: float value
      */
@@ -140,14 +127,8 @@ class ColorSheet : BottomSheetDialogFragment() {
         return this
     }
 
-    // TODO: 翻訳コメントを見直し
     /**
-     * Set corner radius of sheet top left and right corners.
-     *
-     * @param radius: Takes a float value
-     */
-    /**
-     * シート上部の左隅と右上隅の角の半径を設定します。
+     * シート上部の左隅と右上隅の角の半径を設定
      *
      * @param radius: float value
      */
@@ -155,18 +136,8 @@ class ColorSheet : BottomSheetDialogFragment() {
         return cornerRadius(radius.toFloat())
     }
 
-    // TODO: 翻訳コメントを見直し
     /**
-     * Config color picker
-     *
-     * @param colors: Array of colors to show in color picker
-     * @param selectedColor: Pass in the selected color from colors list, default value is null. You can pass [ColorSheet.NO_COLOR]
-     * to select noColorOption in the sheet.
-     * @param noColorOption: Gives a option to set the [selectedColor] to [NO_COLOR]
-     * @param listener: [ColorPickerListener]
-     */
-    /**
-     * カラーピッカーの設定
+     * ColorSheet の設定
      *
      * @param colors: 表示する色の配列。
      * @param selectedColor: 色リストから選択した色を渡します。デフォルト値は null です。
@@ -181,13 +152,10 @@ class ColorSheet : BottomSheetDialogFragment() {
         listener: ColorPickerListener
     ): ColorSheet {
         colorAdapter = ColorAdapter(this, colors, selectedColor, noColorOption, listener)
+
         return this
     }
 
-    // TODO: 翻訳コメントを見直し
-    /**
-     * Shows color sheet
-     */
     /**
      * カラーシートを表示
      */

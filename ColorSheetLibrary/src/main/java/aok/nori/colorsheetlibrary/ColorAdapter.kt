@@ -73,48 +73,36 @@ internal class ColorAdapter(
             }
         }
 
-        // TODO: これで本当に大丈夫？
         private fun bindColorView(@ColorInt color: Int) {
             val colorSelectedView = view.findViewById<ImageView>(R.id.colorSelected)
             val colorSelectedCircleView = view.findViewById<ImageView>(R.id.colorSelectedCircle)
 
-//            itemView.colorSelected.isVisible = selectedColor != null && selectedColor == color
-//            itemView.colorSelected.setImageResource(R.drawable.ic_check)
             colorSelectedView.isVisible = selectedColor != null && selectedColor == color
             colorSelectedView.setImageResource(R.drawable.ic_check)
 
             if (color.isColorDark()) {
-//                itemView.colorSelected.imageTintList =
                 colorSelectedView.imageTintList =
                     ColorStateList.valueOf(resolveColor(itemView.context, android.R.color.white))
             } else {
-//                itemView.colorSelected.imageTintList =
                 colorSelectedView.imageTintList =
                     ColorStateList.valueOf(resolveColor(itemView.context, android.R.color.black))
             }
-//            itemView.colorSelectedCircle.imageTintList = ColorStateList.valueOf(color)
+
             colorSelectedCircleView.imageTintList = ColorStateList.valueOf(color)
         }
 
-        // TODO: これで本当に大丈夫？
         private fun bindNoColorView() {
             val colorSelectedView = view.findViewById<ImageView>(R.id.colorSelected)
             val colorSelectedCircleView = view.findViewById<ImageView>(R.id.colorSelectedCircle)
 
             if (selectedColor != null && selectedColor == ColorSheet.NO_COLOR) {
-//                itemView.colorSelected.isVisible = true
-//                itemView.colorSelected.setImageDrawable(check)
                 colorSelectedView.isVisible = true
                 colorSelectedView.setImageDrawable(check)
             } else {
-//                itemView.colorSelected.isVisible = true
-//                itemView.colorSelected.setImageDrawable(noColor)
                 colorSelectedView.isVisible = true
                 colorSelectedView.setImageDrawable(noColor)
             }
 
-//            itemView.colorSelectedCircle.background = circle
-//            itemView.colorSelectedCircle.imageTintList = ColorStateList.valueOf(
             colorSelectedCircleView.background = circle
             colorSelectedCircleView.imageTintList = ColorStateList.valueOf(
                 resolveColorAttr(itemView.context, attrRes = R.attr.dialogPrimaryVariant)

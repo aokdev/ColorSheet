@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.cli.jvm.compiler.pipeline.createProjectEnvironment
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)

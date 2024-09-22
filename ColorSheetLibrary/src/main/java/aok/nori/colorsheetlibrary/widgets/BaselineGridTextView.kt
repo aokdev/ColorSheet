@@ -8,7 +8,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import aok.nori.colorsheetlibrary.R
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-open class BaselineGridTextView constructor(
+open class BaselineGridTextView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = android.R.attr.textViewStyle
@@ -26,6 +26,7 @@ open class BaselineGridTextView constructor(
         val a = context.obtainStyledAttributes(
             attrs, R.styleable.BaselineGridTextView, defStyleAttr, 0
         )
+
         lineHeightMultiplierHint =
             a.getFloat(R.styleable.BaselineGridTextView_lineHeightMultiplierHint, 1f)
         lineHeightHint =
@@ -40,15 +41,11 @@ open class BaselineGridTextView constructor(
         computeLineHeight()
     }
 
-    // TODO: 翻訳コメントを見直し
-    // include extra padding to place the first line's baseline on the grid
-    // 最初の行のベースラインをグリッド上に配置するために余分なパディングを含める
+    // 最初の行をグリッド上に配置するためにパディングを追加
     override fun getCompoundPaddingTop(): Int =
         super.getCompoundPaddingTop() + extraTopPadding
 
-    // TODO: 翻訳コメントを見直し
-    // include extra padding to make the height a multiple of 4dp
-    // 高さを4dpの倍数にするために余分なパディングを含める
+    // 高さを 4dp の倍数にするためにパディングを追加
     override fun getCompoundPaddingBottom(): Int =
         super.getCompoundPaddingBottom() + extraBottomPadding
 
@@ -65,12 +62,8 @@ open class BaselineGridTextView constructor(
         checkMaxLines(height, MeasureSpec.getMode(heightMeasureSpec))
     }
 
-    // TODO: 翻訳コメントを見直し
     /**
-     * Ensures line height is a multiple of 4dp.
-     */
-    /**
-     * 行の高さが 4dp の倍数であることを保証します。
+     * 行の高さを 4dp の倍数に設定
      */
     private fun computeLineHeight() {
         val fm = paint.fontMetricsInt
@@ -86,12 +79,8 @@ open class BaselineGridTextView constructor(
         setLineSpacing((baselineAlignedLineHeight - fontHeight).toFloat(), 1f)
     }
 
-    // TODO: 翻訳コメントを見直し
     /**
-     * Ensure that the first line of text sits on the 4dp grid.
-     */
-    /**
-     * テキストの最初の行が 4dp グリッド上に配置されていることを確認します。
+     * テキストの最初の行がグリッドから 4dp の倍数の位置に配置されるために必要なパディングを返す
      */
     private fun ensureBaselineOnGrid(): Int {
         val baseline = baseline.toFloat()
@@ -104,12 +93,8 @@ open class BaselineGridTextView constructor(
         return extraTopPadding
     }
 
-    // TODO: 翻訳コメントを見直し
     /**
-     * Ensure that height is a multiple of 4dp.
-     */
-    /**
-     * 高さが 4dp の倍数であることを確認します。
+     * 高さが 4dp の倍数であるために必要なパディングを返す
      */
     private fun ensureHeightGridAligned(height: Int): Int {
         val gridOverhang = height % fourDip
@@ -121,14 +106,9 @@ open class BaselineGridTextView constructor(
         return extraBottomPadding
     }
 
-    // TODO: 翻訳コメントを見直し
     /**
-     * When measured with an exact height, text can be vertically clipped mid-line. Prevent
-     * this by setting the `maxLines` property based on the available space.
-     */
-    /**
-     * 正確な高さで測定すると、テキストが行の途中で垂直に切り取られることがあります。
-     * これを防ぐには、使用可能なスペースに基づいて `maxLines` プロパティを設定します。
+     * 正確な高さで測定するとテキストが行の途中で垂直に切り取られることがある。
+     * これを防ぐため、使用可能なスペースに基づいて `maxLines` プロパティを設定する。
      */
     private fun checkMaxLines(height: Int, heightMode: Int) {
         if (!maxLinesByHeight || heightMode != MeasureSpec.EXACTLY) return

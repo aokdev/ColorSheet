@@ -5,8 +5,7 @@ import android.util.AttributeSet
 import androidx.core.content.res.ResourcesCompat
 import aok.nori.colorsheetlibrary.R
 
-internal class ColorSheetTitle
-constructor(
+internal class ColorSheetTitle @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = android.R.attr.textViewStyle

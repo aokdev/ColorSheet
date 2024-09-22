@@ -10,7 +10,6 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatDelegate
@@ -35,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
 
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
         val colors = resources.getIntArray(R.array.colors)
@@ -44,8 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         noColorOption = savedInstanceState?.getBoolean(NO_COLOR_OPTION) ?: false
 
-        binding.colorSheet.setOnClickListener {
-            Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show()
+        binding.colorSheetButton.setOnClickListener {
             ColorSheet().cornerRadius(8)
                 .colorPicker(
                     colors = colors,

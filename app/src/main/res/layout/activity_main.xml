@@ -46,11 +46,10 @@
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     android:textColor="@android:color/white"
                     tools:text="#FFFFFF" />
-
             </FrameLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/colorSheet"
+                android:id="@+id/colorSheetButton"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
