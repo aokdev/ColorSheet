@@ -6,6 +6,8 @@ plugins {
     `maven-publish`
 }
 
+group = "com.github.aokdev"
+
 android {
     namespace = "aok.nori.colorsheetlibrary"
     compileSdk = 34
