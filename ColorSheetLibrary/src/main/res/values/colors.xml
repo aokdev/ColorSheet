@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="dialogPrimary">#FAFAFA</color>
+    <color name="dialogPrimaryVariant">#E0E0E0</color>
+
+    <color name="dialogDarkPrimary">#202020</color>
+    <color name="dialogDarkPrimaryVariant">#151515</color>
+
+    <color name="dividerColor">#1F000000</color>
+</resources>
