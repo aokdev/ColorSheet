@@ -6,6 +6,7 @@
 
 package aok.nori.colorsheetlibrary
 
+import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -36,11 +37,22 @@ class ColorSheet : BottomSheetDialogFragment() {
         const val NO_COLOR = -1
     }
 
+    /**
+     * 初期表示するシートの種類
+     */
+    enum class InitialSheet {
+        PRESETS,
+        CUSTOM
+    }
+
     private var _binding: ColorSheetBinding? = null
     private val binding get() = _binding!!
 
     private var sheetCorners: Float = 0f
     private var colorAdapter: ColorAdapter? = null
+    private var listener: ColorPickerListener = null
+    private var selectedColor: Int? = null
+    private var initialSheet: InitialSheet = InitialSheet.PRESETS
 
     override fun getTheme(): Int {
         return Theme.inferTheme(requireContext()).styleRes
@@ -107,6 +119,50 @@ class ColorSheet : BottomSheetDialogFragment() {
         binding.colorSheetClose.setOnClickListener {
             dismiss()
         }
+
+        setupCustomColorPicker()
+
+        // 初期表示シートの設定
+        if (initialSheet == InitialSheet.CUSTOM) {
+            binding.presetsLayout.visibility = View.GONE
+            binding.customLayout.visibility = View.VISIBLE
+        } else {
+            binding.presetsLayout.visibility = View.VISIBLE
+            binding.customLayout.visibility = View.GONE
+        }
+    }
+
+    /**
+     * カスタムカラーピッカー設定
+     */
+    private fun setupCustomColorPicker() {
+        binding.colorSheetCustom.setOnClickListener {
+            binding.presetsLayout.visibility = View.GONE
+            binding.customLayout.visibility = View.VISIBLE
+        }
+
+        binding.colorSheetPresets.setOnClickListener {
+            binding.presetsLayout.visibility = View.VISIBLE
+            binding.customLayout.visibility = View.GONE
+        }
+
+        binding.colorSheetSelect.setOnClickListener {
+            val color = binding.colorPickerView.getColor()
+            listener?.invoke(color)
+            dismiss()
+        }
+
+        val initialColor = if (selectedColor != null && selectedColor != NO_COLOR) {
+            selectedColor!!
+        } else {
+            Color.BLACK
+        }
+        binding.colorPickerView.setColor(initialColor)
+        binding.customColorPreview.setBackgroundColor(initialColor)
+
+        binding.colorPickerView.setOnColorChangedListener { color ->
+            binding.customColorPreview.setBackgroundColor(color)
+        }
     }
 
     override fun onDestroyView() {
@@ -137,6 +193,17 @@ class ColorSheet : BottomSheetDialogFragment() {
     }
 
     /**
+     * 初期表示するシートを設定
+     * （ビルダー形式）
+     *
+     * @param sheet: [InitialSheet]
+     */
+    fun initialSheet(sheet: InitialSheet): ColorSheet {
+        this.initialSheet = sheet
+        return this
+    }
+
+    /**
      * ColorSheet の設定
      *
      * @param colors: 表示する色の配列。
@@ -151,6 +218,8 @@ class ColorSheet : BottomSheetDialogFragment() {
         noColorOption: Boolean = false,
         listener: ColorPickerListener
     ): ColorSheet {
+        this.listener = listener
+        this.selectedColor = selectedColor
         colorAdapter = ColorAdapter(this, colors, selectedColor, noColorOption, listener)
 
         return this

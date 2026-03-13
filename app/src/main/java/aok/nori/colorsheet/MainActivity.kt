@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         noColorOption = savedInstanceState?.getBoolean(NO_COLOR_OPTION) ?: false
 
-        binding.colorSheetButton.setOnClickListener {
+        binding.presetsButton.setOnClickListener {
             ColorSheet().cornerRadius(8)
                 .colorPicker(
                     colors = colors,
@@ -53,6 +53,21 @@ class MainActivity : AppCompatActivity() {
                         selectedColor = color
                         setColor(selectedColor)
                     })
+                .initialSheet(ColorSheet.InitialSheet.PRESETS)
+                .show(supportFragmentManager)
+        }
+
+        binding.customButton.setOnClickListener {
+            ColorSheet().cornerRadius(8)
+                .colorPicker(
+                    colors = colors,
+                    noColorOption = noColorOption,
+                    selectedColor = selectedColor,
+                    listener = { color ->
+                        selectedColor = color
+                        setColor(selectedColor)
+                    })
+                .initialSheet(ColorSheet.InitialSheet.CUSTOM)
                 .show(supportFragmentManager)
         }
     }

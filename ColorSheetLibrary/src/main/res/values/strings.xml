@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Color Sheet Library</string>
-    <string name="pick_a_color">Pick a color</string>
+    <string name="choose_a_color">Choose a color</string>
+
+    <string name="button_label_custom">CUSTOM</string>
+    <string name="button_label_presets">PRESETS</string>
+    <string name="button_label_select">SELECT</string>
 </resources>
