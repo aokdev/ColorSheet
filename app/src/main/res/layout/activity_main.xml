@@ -48,18 +48,36 @@
                     tools:text="#FFFFFF" />
             </FrameLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/colorSheetButton"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textColor="?android:attr/textColorPrimary"
-                app:cornerRadius="18dp"
+                android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/colorBackground" />
+                app:layout_constraintTop_toBottomOf="@id/colorBackground">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/presetsButton"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="32dp"
+                    android:text="@string/button_presets"
+                    android:textColor="?android:attr/textColorPrimary"
+                    app:cornerRadius="18dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/customButton"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:text="@string/button_custom"
+                    android:textColor="?android:attr/textColorPrimary"
+                    app:cornerRadius="18dp" />
+
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

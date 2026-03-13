@@ -3,4 +3,7 @@
     <string name="no_color">Default Color</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="enable_no_color">No color option</string>
+
+    <string name="button_presets">Presets</string>
+    <string name="button_custom">Custom</string>
 </resources>
