@@ -83,7 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="16dp"
-                    android:paddingTop="32dp"
+                    android:paddingTop="8dp"
                     android:paddingEnd="16dp"
                     android:paddingBottom="16dp">
 
@@ -121,11 +121,11 @@
                     android:id="@+id/customColorPreview"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@android:color/black"
-                    app:layout_constraintBottom_toTopOf="@id/colorSheetSelect"
-                    app:layout_constraintEnd_toEndOf="@id/colorSheetSelect"
-                    app:layout_constraintStart_toStartOf="@id/colorSheetSelect" />
+                    app:layout_constraintEnd_toEndOf="@id/colorPickerView"
+                    app:layout_constraintTop_toTopOf="@id/colorPickerView" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/colorSheetPresets"
@@ -133,7 +133,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginBottom="16dp"
                     android:text="@string/button_label_presets"
                     app:cornerRadius="20dp"
@@ -147,7 +147,7 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     android:text="@string/button_label_select"
