@@ -84,8 +84,8 @@ class ColorPickerView @JvmOverloads constructor(
         centerX = w / 2f
         centerY = h / 2f
         
-        // ビューの大きさに合わせて半径を決定（95%サイズに調整）
-        radius = min(w, h) / 2f * 0.95f
+        // ビューの大きさに合わせて半径を決定（90%サイズに調整）
+        radius = min(w, h) / 2f * 0.90f
         val strokeWidth = radius * 0.15f // リングの太さ
         huePaint.strokeWidth = strokeWidth
         innerRadius = radius - strokeWidth / 2f
