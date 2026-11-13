@@ -28,13 +28,16 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
  * 選択された色を返却する。
  * noColorOption が有効でユーザーがオプションを選択した場合は [ColorSheet.NO_COLOR] を返却する。
  */
-typealias ColorPickerListener = ((color: Int) -> Unit)?
+typealias ColorPickerListener = ((color: Int?) -> Unit)?
 
 class ColorSheet : BottomSheetDialogFragment() {
 
     companion object {
         private const val TAG = "ColorSheet"
-        const val NO_COLOR = -1
+        /**
+         * 色が選択されていないことを表す値
+         */
+        val NO_COLOR: Int? = null
     }
 
     /**
@@ -152,16 +155,26 @@ class ColorSheet : BottomSheetDialogFragment() {
             dismiss()
         }
 
-        val initialColor = if (selectedColor != null && selectedColor != NO_COLOR) {
-            selectedColor!!
-        } else {
-            Color.BLACK
-        }
+        val initialColor = selectedColor ?: Color.BLACK
         binding.colorPickerView.setColor(initialColor)
-        binding.customColorPreview.setBackgroundColor(initialColor)
+
+        val previewBorderColor = if (Theme.inferTheme(requireContext()) == Theme.LIGHT) {
+            R.color.customColorPreviewBorder
+        } else {
+            R.color.customColorPreviewBorderDark
+        }
+        val previewBackground = GradientDrawable().apply {
+            shape = GradientDrawable.RECTANGLE
+            setColor(initialColor)
+            setStroke(
+                resources.getDimensionPixelSize(R.dimen.custom_color_preview_border_width),
+                resolveColor(requireContext(), colorRes = previewBorderColor)
+            )
+        }
+        binding.customColorPreview.background = previewBackground
 
         binding.colorPickerView.setOnColorChangedListener { color ->
-            binding.customColorPreview.setBackgroundColor(color)
+            previewBackground.setColor(color)
         }
     }
 

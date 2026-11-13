@@ -95,7 +95,7 @@ internal class ColorAdapter(
             val colorSelectedView = view.findViewById<ImageView>(R.id.colorSelected)
             val colorSelectedCircleView = view.findViewById<ImageView>(R.id.colorSelectedCircle)
 
-            if (selectedColor != null && selectedColor == ColorSheet.NO_COLOR) {
+            if (selectedColor == ColorSheet.NO_COLOR) {
                 colorSelectedView.isVisible = true
                 colorSelectedView.setImageDrawable(check)
             } else {

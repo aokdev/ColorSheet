@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private var selectedColor: Int = ColorSheet.NO_COLOR
+    private var selectedColor: Int? = ColorSheet.NO_COLOR
     private var noColorOption = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +38,13 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         val colors = resources.getIntArray(R.array.colors)
-        selectedColor = savedInstanceState?.getInt(COLOR_SELECTED) ?: colors.first()
+        selectedColor = if (savedInstanceState == null) {
+            colors.first()
+        } else if (savedInstanceState.containsKey(COLOR_SELECTED)) {
+            savedInstanceState.getInt(COLOR_SELECTED)
+        } else {
+            ColorSheet.NO_COLOR
+        }
         setColor(selectedColor)
 
         noColorOption = savedInstanceState?.getBoolean(NO_COLOR_OPTION) ?: false
@@ -110,14 +116,17 @@ class MainActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putInt(COLOR_SELECTED, selectedColor)
+        outState.remove(COLOR_SELECTED)
+        selectedColor?.let { color -> outState.putInt(COLOR_SELECTED, color) }
         outState.putBoolean(NO_COLOR_OPTION, noColorOption)
     }
 
-    private fun setColor(@ColorInt color: Int) {
+    private fun setColor(@ColorInt color: Int?) {
         if (color != ColorSheet.NO_COLOR) {
-            binding.colorBackground.setBackgroundColor(color)
-            binding.colorSelectedText.text = ColorSheetUtils.colorToHex(color)
+            color?.let { selectedColor ->
+                binding.colorBackground.setBackgroundColor(selectedColor)
+                binding.colorSelectedText.text = ColorSheetUtils.colorToHex(selectedColor)
+            }
         } else {
             val primaryColor = ContextCompat.getColor(this, R.color.colorPrimary)
             binding.colorBackground.setBackgroundColor(primaryColor)
